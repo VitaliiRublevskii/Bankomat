@@ -36,8 +36,8 @@ namespace Bankomat
 
         public void KartaPrint ()
         {
-            Console.WriteLine( $" Нова карта випущена банком : \n\t{Bank},\n\t номер карти : {Number},\n\t PIN-код карти {Pin}\n\t" +
-                $"баланс карти {Balans},\n\t строк дії {Date.Month}/{Date.Year}" );
+            Console.WriteLine( $" Данні карти: \n банк-імітент :\t\t{Bank},\n номер карти : \t\t{Number},\n PIN-код карти: \t{Pin}\n" +
+                $" баланс карти: \t\t{Balans},\n строк дії: \t\t{Date.Month}/{Date.Year}" );
         }
 
 
