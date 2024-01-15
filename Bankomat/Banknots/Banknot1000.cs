@@ -14,10 +14,7 @@ namespace Bankomat.Banknots
             ID = RndStr(2, 7);
         }
 
-        public override void BanknotPrint()
-        {
-            base.BanknotPrint();
-        }
+        public override void BanknotPrint() => base.BanknotPrint();
 
 
     }

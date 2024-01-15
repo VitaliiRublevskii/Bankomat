@@ -21,12 +21,9 @@ namespace Bankomat.Banknots
         {
             Nominal = nomin;
             ID = id;
-
         }
-        public virtual void BanknotPrint()
-        {
-            Console.WriteLine($"Банкнота номіналом {Nominal} грн., серійний номер {ID}");
-        }
+        public virtual void BanknotPrint() => Console.WriteLine($"Банкнота номіналом {Nominal} грн., серійний номер {ID}");
+        
 
         public static Random rnd = new Random();
         //  Метод генерації  серії та номеру купюри
@@ -41,5 +38,20 @@ namespace Bankomat.Banknots
                 sb.Append(numberSet[rnd.Next(numberSet.Length)]);
             return sb.ToString();
         }
+
+        public void AddBankToFile(string filename) => File.AppendAllText(filename, Nominal + " " + ID + "\n");
+
+        public void WraitFile(string str)
+        {
+            string[] s = str.Split(" ");
+            Nominal = int.Parse( s[0]);
+            ID = s[1];
+        }
+
+     
+
+
+
+
     }
 }

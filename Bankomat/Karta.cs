@@ -14,10 +14,13 @@ namespace Bankomat
         public double Balans { get; set; }
         public DateOnly Date { get; set; }
 
+
+    
+
         public Karta()
         {
             Bank = RndBank(1);
-            Number = RndNum(4) + " " + RndNum(4) + " " + RndNum(4) + " " + RndNum(4);
+            Number = RndNum(4) + "-" + RndNum(4) + "-" + RndNum(4) + "-" + RndNum(4);
             Pin = RndNum(4);
             Balans = random.Next(0, 100000);
             Date = new DateOnly(random.Next(23, 27), random.Next(1, 12), 1);
@@ -34,12 +37,12 @@ namespace Bankomat
 
         }
 
-        public void KartaPrint ()
-        {
-            Console.WriteLine( $" Данні карти: \n банк-імітент :\t\t{Bank},\n номер карти : \t\t{Number},\n PIN-код карти: \t{Pin}\n" +
-                $" баланс карти: \t\t{Balans},\n строк дії: \t\t{Date.Month}/{Date.Year}" );
-        }
+       
 
+        public void KartaPrint() => Console.WriteLine( $" Данні карти: \n банк-імітент :\t\t{Bank},\n номер карти : \t\t{Number},\n PIN-код карти: \t{Pin}\n" +
+                $" баланс карти: \t\t{Balans},\n строк дії: \t\t{Date.Month}/{Date.Year}" );
+
+        public void KartaShow() => Console.WriteLine($" Данні карти: \n банк-імітент :\t\t{Bank},\n номер карти : \t\t{Number},\n строк дії: \t\t{Date.Month}/{Date.Year}");
 
         public static Random random = new Random();
         //  Метод рандомного вибору Банку імітенту карти
@@ -65,7 +68,7 @@ namespace Bankomat
             return sNum.ToString();
         }
 
-
+        public void AddToFile (string filename) => File.AppendAllText(filename, Bank + " " + Number + " " + Pin + " " + Balans + " " + Date + "\n");
 
 
 
