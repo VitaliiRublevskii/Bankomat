@@ -104,19 +104,6 @@ using (Terminal term = new Terminal())
     
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     Console.WriteLine("\tПривіт !!!");
     Console.WriteLine("\tРаді вітати Вас у відділенні нашого банку !!!");
     Console.WriteLine("\tВи замовляли карту. Вона готова!");
@@ -327,10 +314,18 @@ using (Terminal term = new Terminal())
                         Console.WriteLine(" ЗНЯТТЯ  ГОТІВКИ");
 
                         Console.Write("Вкажіть сумму, яку Ви хочете зняти (кратно 100 грн.)\t");
-                        int cash = int.Parse(Console.ReadLine());  //  доробити перевірку на кратно 100
+                        int cash = 0;
+                        try
+                        {
+                            cash = int.Parse(Console.ReadLine());
+                        }
+                        catch { Console.WriteLine("Некоректний ввод"); }
+                         
                         if (cash % 100 != 0)
                         {
                             Console.WriteLine(" Вказана сума не кратна 100");
+                            Console.WriteLine("OK");
+                            Console.ReadKey();
                         }
                         else
                         {
@@ -508,6 +503,7 @@ using (Terminal term = new Terminal())
                                     }
                                 }
                             }
+                            Console.WriteLine(  );
                             terminal.TerminalInfo();
                             // записати в файли
                             Console.WriteLine("OK");
@@ -571,13 +567,52 @@ using (Terminal term = new Terminal())
 
                         Console.WriteLine(" ПОПОВНЕННЯ  КАРТКИ");
                         Console.Write(" Введіть суму поповнення карти:\t");
-                        int sumBalance = int.Parse(Console.ReadLine());
-                        foreach(var x in res3)
+                        int sumBalance = 0;
+                        try
                         {
-                            x.Balans += sumBalance;                            
-                            Console.WriteLine($" Ваш рахунок поповнений на {sumBalance}, баланс Вашої карти становить {x.Balans} грн. ");
-                        }                           
-                        
+                            sumBalance = int.Parse(Console.ReadLine());
+                        }
+                        catch { Console.WriteLine("Некоректний ввод"); Console.ReadKey(); break;  }
+                        if (sumBalance % 100 != 0)
+                        {
+                            Console.WriteLine(" Вказана сума не кратна 100");
+                            
+                        }
+                        else
+                        {
+                            int bankNote = 0, sumBanknote = 0;
+
+                            //  прийняття купюр
+                            //  5249-0240-5487-5986
+                            while (sumBalance !>= sumBanknote)
+                            {
+                                Console.WriteLine(" Введіть яку купюру ви кладете в термінал");
+                                Console.WriteLine(" Коли завершите, введіть 0");
+                                try
+                                {
+                                    bankNote = int.Parse(Console.ReadLine());
+                                }
+                                catch { Console.WriteLine("Некоректний ввод"); }
+                                if (bankNote == 0) break;
+                                if (bankNote != 100 && bankNote != 200 && bankNote != 500 && bankNote != 1000) { Console.WriteLine("Таких купюр не буває"); }
+                                else 
+                                {
+                                    
+                                    if (bankNote == 100) { terminal.B100.Add(new Banknot100()); }
+                                    else if (bankNote == 200) { terminal.B200.Add(new Banknot200()); }
+                                    else if (bankNote == 500) { terminal.B500.Add(new Banknot500()); }
+                                    else if (bankNote == 1000) { terminal.B1000.Add(new Banknot1000()); }
+                                    sumBanknote += bankNote;
+                                }
+                                
+                            }
+                            foreach (var x in res3)
+                            {
+                                x.Balans += sumBanknote;
+                                Console.WriteLine($" Ваш рахунок поповнений на {sumBanknote}, баланс Вашої карти становить {x.Balans} грн. ");
+                            }
+                        }
+
                         Console.WriteLine();
                         Console.WriteLine("OK");
                         Console.ReadKey();
